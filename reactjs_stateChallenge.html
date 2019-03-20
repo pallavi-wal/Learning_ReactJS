@@ -1,0 +1,53 @@
+<!-- states is used for dynamic data -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lesson - 6</title>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      var CounterChallenge = React.createClass({
+        getInitialState: function(){
+           return {
+             counter: 0
+           }
+        },
+        incrementByOne: function(){
+          this.setState({
+            counter : this.state.counter + 1
+          })
+        },
+        incrementByFive: function(){
+          this.setState({
+            counter : this.state.counter + 5
+          })
+        },
+        incrementByTen: function(){
+          this.setState({
+            counter : this.state.counter + 10
+          })
+        },
+         render: function(){
+           return (
+             <div>
+             <button onClick={this.incrementByOne}> Add 1 </button>
+             <button onClick={this.incrementByFive}> Add 5 </button>
+             <button onClick={this.incrementByTen}> Add 10 </button>
+             <p>{this.state.counter}</p>
+             </div>
+           )
+         }
+      });
+
+      ReactDOM.render(
+        <CounterChallenge />,
+        document.getElementById('app')
+      )
+    </script>
+  </body>
+</html>
