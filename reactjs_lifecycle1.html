@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lesson - 7</title>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+    /** when a component is added to the DOM, its called mounting and when it is removed it is called unmounting.**/
+    var LifeCycleComponent = React.createClass({
+      // 1 Called once
+     //Before the component is rendered
+     //happens when class is created
+     getDefaultProps: function(){
+        console.log('Getting our default properities');
+     },
+      increment: function(){
+        this.setState({
+          count : this.state.count + 1
+        })
+      },
+
+      //2 Called once
+      //Before the component is rendered
+      getInitialState: function(){
+        console.log('Getting our default states')
+         return({
+           count : 0
+         })
+      },
+
+      //3 called once
+      //Before the component is rendered
+      componentWillMount : function(){
+        /** This doest not have access to DOM , but it has access to props  and states*/
+        console.log('componentWillMount', this.state);
+        console.log('componentWillMount', this.prop);
+        console.log('Component is mounting');
+      },
+
+      //4
+      //Whenever our component changes
+      render : function(){
+        console.log('component is rendered');
+        return (
+          <button onClick={this.increment}>{this.state.count}</button>
+        )
+      },
+      // 5 called once
+      //after the component is rendered
+      componentDidMount: function(){
+        console.log("Component has rendered");
+        console.log(this.state);
+        console.log(this.props);
+        console.log(ReactDOM.findDOMNode(this));
+        this.interval = setInterval(this.increment, 1000);
+        console.log(this);
+      },
+      //6 only once
+      // after component is rendered
+      componentWillUnmount: function(){
+        clearInterval(this.interval);
+        console.log('Component unmounted!');
+      }
+    });
+
+
+   var LifeCycleContainer = React.createClass({
+     mount: function(){
+       ReactDOM.render(
+         <LifeCycleComponent />,
+         document.getElementById('renderHere')
+       )
+     },
+     unmount(){
+       ReactDOM.unmountComponentAtNode(document.getElementById('renderHere'));
+     },
+     render: function(){
+       console.log('LifeCycleContainer rendered');
+       return(
+         <div>
+         <button onClick={this.mount}>Mount</button>
+         <button onClick={this.unmount}>Unmount</button>
+         <div id="renderHere"></div>
+         </div>
+       )
+     }
+   });
+   ReactDOM.render(
+     <LifeCycleContainer />,
+     document.getElementById('app')
+   )
+    </script>
+  </body>
+</html>
