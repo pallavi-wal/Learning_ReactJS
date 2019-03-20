@@ -1,0 +1,91 @@
+<!-- stateless components pure/dumb components as they don't have any state --> <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lesson - 6</title>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      var TaskList = React.createClass({
+        getInitialState: function(){
+           return{
+             tasks: [
+               {title : 'Get car keys', id: 1},
+               {title : 'Pay premium', id: 2},
+               {title : 'Send car for servicing', id: 3}
+             ]
+           }
+        },
+         render: function(){
+           return (
+             <ul>
+             {this.state.tasks.map(function(task){
+               return <Task title={task.title} key={task.id}/>
+             })}
+             </ul>
+           )
+         }
+      });
+
+
+      var Task = function(props){
+        return (
+          <li>Task : {props.title}</li>
+        )
+      };
+      ReactDOM.render(
+        <TaskList />,
+        document.getElementById('app')
+      )
+    </script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React tutorial</title>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      var TaskList = React.createClass({
+        getInitialState: function() {
+          return {
+            tasks: [
+              {title: 'Clean dishes', id: 1},
+              {title: 'Take out the bins', id: 2},
+              {title: 'Change bed', id:3}
+            ]
+          }
+        },
+        render: function() {
+          return (
+            <ul>
+              {this.state.tasks.map(function(task) {
+                return <Task title={task.title} key={task.id} />
+              })}
+            </ul>
+          )
+        }
+      });
+      var Task = function(props) {
+        return (
+          <li>Task: {props.title}</li>
+        )
+      };
+      ReactDOM.render(
+        <TaskList />,
+        document.getElementById('app')
+      )
+    </script>
+  </body>
+</html> -->
