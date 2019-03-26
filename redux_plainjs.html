@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Redux with plain JS</title>
+  <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+  <!-- <link rel="stylesheet" href="./counter.css"> -->
+</head>
+<body>
+  <div class="container">
+    <h1 id="counter">0</h1>
+    <button class="btn btn-blue" id="add">add</button>
+    <button class="btn btn-green" id="minus">minus</button>
+    <button class="btn btn-red" id="reset">reset</button>
+  </div>
+  <!-- <script src="./counter.js"></script> -->
+  <script>
+//REDUCER
+//Reducer takes two arguements, one the current state of the application and another arguement is the action dispatched
+function counter(currentState, action){
+  var nextState = {
+    count: currentState.count
+  }
+   switch(action.type){
+     case 'ADD':
+     console.log(action);
+     nextState.count = currentState.count +1
+     return nextState
+     break;
+     case 'MINUS':
+     console.log('MINUS',action);
+     nextState.count = currentState.count -1
+     return nextState
+     break;
+     case 'RESET':
+     console.log('RESET',action);
+     nextState.count = 0
+     return nextState
+ //before getting our nextState, we are in default case by default
+     default:
+      return currentState
+   }
+}
+
+
+//STATE
+var state = { count: 0 }
+
+
+//STORE
+//Stores accepts two arguement. First is the reducer and the other is the state.
+var store = Redux.createStore(counter, state)
+var counterEl = document.getElementById('counter');
+console.log(store);
+
+function render(){
+  console.log('In render');
+  console.log(store.getState()) // this function will return the state object
+  var updated_state = store.getState();
+  counterEl.innerHTML = updated_state.count.toString();
+}
+
+store.subscribe(render)
+
+
+  //ACTION
+
+  //creating handler for transmitting actions, this block of code is our handler which is dispatching the action
+  document.getElementById('add').addEventListener('click', function(){
+    store.dispatch({type: 'ADD'})
+    console.log({type: 'ADD'});
+  })
+
+  //creating handler for transmitting actions for minus
+  document.getElementById('minus').addEventListener('click', function(){
+    store.dispatch({type:'MINUS'})
+    console.log({type: 'MINUS'});
+  })
+
+  //creating handler for transmitting actions for reset
+  document.getElementById('reset').addEventListener('click', function(){
+    store.dispatch({type:'RESET'})
+    console.log({ type: 'RESET'})
+  })
+  //ACTION TYPE CREATED
+  //{ type: 'ADD'}
+  </script>
+</body>
+</html>
